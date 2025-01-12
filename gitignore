@@ -1,0 +1,13 @@
+# Ignorer les fichiers temporaires du système
+.DS_Store
+Thumbs.db
+
+# Ignorer les dossiers système
+node_modules/
+.vscode/
+__pycache__/
+
+# Ignorer les fichiers volumineux
+images/
+videos/
+ 
