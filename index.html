@@ -9,7 +9,6 @@
     <title>S_Computer</title>
     <meta name="google-site-verification" content="SbzQf--X93TxgzQ540VqLsa70FF1g24_xgbVbyHh4kU" />
     <style>
-
         /* CSS pour tout le site */
         body {
             font-family: Arial, sans-serif;
@@ -17,10 +16,20 @@
             margin: 0;
             padding: 0;
         }
+
         h1, h2 {
             color: #333;
             text-align: center;
-        } 
+        }
+
+        /* Conteneur général centré */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Menu de navigation */
         nav ul {
             display: flex;
             justify-content: center;
@@ -28,46 +37,64 @@
             background-color: #007BFF;
             padding: 10px;
         }
+
         nav ul li {
-            margin: 0 10px;
+        margin: 0 10px;
         }
+
         nav ul li a {
             color: white;
             text-decoration: none;
             padding: 10px 15px;
         }
+
         nav ul li a:hover {
             background-color: #0056b3;
             border-radius: 5px;
         }
+
+        /* Pied de page */
         footer {
             background-color: #333;
             color: white;
             text-align: center;
             padding: 10px;
         }
+
+        /* Tableau */
         table {
-            width: 80%;
+            width: 100%;
             margin: 20px auto;
             border-collapse: collapse;
         }
+
         table, th, td {
             border: 1px solid black;
             text-align: center;
             padding: 10px;
         }
+
+        /* Slideshow */
         #slideshow img {
             width: 100%;
         }
+
+        /* Galerie d'images */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            justify-items: center;
+        }
+
         .gallery img {
             width: 100%;
-            height: auto;
             max-width: 200px;
-            margin: 10px;
+            height: auto;
             border-radius: 8px;
-        
-           
         }
+
+        /* Boutons */
         button {
             margin-top: 10px;
             padding: 10px 15px;
@@ -77,10 +104,27 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
         button:hover {
             background-color: #0056b3;
         }
-    </style>
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+        nav ul {
+            flex-direction: column;
+        }
+
+        .gallery img {
+            max-width: 100%;
+        }
+
+        table {
+            width: 100%;
+        }
+    }
+</style>
+
 </head>
 <body>
     <h1>Bienvenue chez  S_Computer ,votre expert en informatique!</h1>
@@ -98,13 +142,15 @@
     </nav>
 
     <!-- Section Accueil -->
-    <section id="home">
+    <section id="home"
+     class="container">
         <h2>Section Accueil</h2>
         <p>Ceci est la section d'accueil de la page.</p>
     </section>
 
     <!-- Section À propos -->
-    <section id="about">
+    <section id="about"
+     class="container">
         <h2>À propos</h2>
         <p>S_Computer a été fondé avec des valeurs et objectifs:</p>
         <p>inovation,fiabilité,satisfaction client. </p>  
@@ -135,7 +181,8 @@
     </section>
 
     <!-- Section Services/Activités -->
-    <section id="services">
+    <section id="services"
+     class="container">
         <h2>Nos Services et Activités</h2>
         <p>Découvrez les services que nous proposons :</p>
         <ul>
@@ -147,7 +194,8 @@
     </section>
 
     <!-- Section Blog -->
-    <section id="blog">
+    <section id="blog"
+     class="container">
         <h2>Blog</h2>
         <p>Lisez nos derniers articles :</p>
         <div>
@@ -161,7 +209,8 @@
     </section>
 
     <!-- Section Galerie -->
-    <section id="gallery">
+    <section id="gallery"
+     class="container">
         <h2>Galerie</h2>
         <p>Voici quelques images de nos produits et de notre travail :</p>
         <div class="gallery">
@@ -178,7 +227,8 @@
     </section>
 
     <!-- Section Contact -->
-    <section id="contact">
+    <section id="contact"
+     class="container">
         <h2>Contactez-nous</h2>
         <form>
             <label for="name">Nom :</label>
