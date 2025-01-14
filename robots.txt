@@ -1,4 +1,4 @@
 user-agent:*
 Allow: /
 Sitemap:
-https://sanga300fou.github.io/Mon_site_web/sitemap.xml
+https://sang300fou.github.io/Mon_site_web/sitemap.xml
