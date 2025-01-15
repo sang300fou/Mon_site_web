@@ -230,7 +230,7 @@
     <section id="contact"
      class="container">
         <h2>Contactez-nous</h2>
-        <form id="contact-form">
+       <form id="contact-form">
             <label for="name">Nom :</label>
             <input type="text" id="name" name="user_name" placeholder="Serge Lamarre" required><br><br>
 
@@ -250,7 +250,7 @@
 
             document.getElementById('contact-form').addEventListener('submit', function (event) {
                 event.preventDefault();
-                emailjs.sendForm('service_ri30bb3', 'template_uy6nkib', this)
+                emailjs.sendForm('service_lqrzxch', 'template_uy6nkib', this)
                     .then(function () {
                         alert('Message envoyé avec succès!');
                     }, function (error) {
