@@ -218,7 +218,7 @@
             <img src="images/image2.jpg" alt="Image 2">
             <img src="images/image3.jpg" alt="Image 3">
             <img src="images/image4.jpg" alt="Image 4">
-            <img src="images/image5.jpg" alt="Image 5">
+            <img src="images/image5.jpg" al t="Image 5">
             <img src="images/image6.jpg" alt="Image 6">
             <img src="images/image7.jpg" alt="Image 7">
             <img src="images/image8.jpg" alt="Image 8">
@@ -230,18 +230,35 @@
     <section id="contact"
      class="container">
         <h2>Contactez-nous</h2>
-        <form>
+        <form id="contact-form">
             <label for="name">Nom :</label>
-            <input type="text" id="name" name="name" placeholder="Serge Lamarre" required><br><br>
+            <input type="text" id="name" name="user_name" placeholder="Serge Lamarre" required><br><br>
 
             <label for="email">Email :</label>
-            <input type="email" id="email" name="email" placeholder="lamarreserge56@gmail.com" required><br><br>
+            <input type="email" id="email" name="user_email" placeholder="lamarreserge56@gmail.com" required><br><br>
 
             <label for="message">Message :</label><br>
             <textarea id="message" name="message" placeholder="Je suis disponible pour toute vos besoin de materiels,d'informations et informatique !" rows="5" required></textarea><br><br>
 
             <button type="submit">Envoyer</button>
         </form>
+        <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.4.1/dist/email.min.js"></script>
+        <script>
+            (function () {
+                emailjs.init("A6oXWiN0behpsHZ1s"); // Remplace TON_USER_ID par ton User ID
+            })();
+
+            document.getElementById('contact-form').addEventListener('submit', function (event) {
+                event.preventDefault();
+                emailjs.sendForm('service_ri30bb3', 'template_uy6nkib', this)
+                    .then(function () {
+                        alert('Message envoyé avec succès!');
+                    }, function (error) {
+                        alert('Échec de l\'envoi : ' + error.text);
+                    });
+            });
+        </script>
+
         <!--Ajouter un button de contact-->
         <p>Ou Contactez-moi par téléphone :</p>
         <a href="tel:+22370642308">
@@ -310,3 +327,5 @@
     </script>
 </body>
 </html>
+
+
