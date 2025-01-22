@@ -123,6 +123,66 @@
             width: 100%;
         }
     }
+    /* Styles pour la recherche avancée */
+.search-container {
+    text-align: center;
+    margin: 20px 0;
+}
+input[type="text"] {
+    width: 50%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+ul#productList {
+    list-style-type: none;
+    padding: 0;
+}
+ul#productList li {
+    background: #007BFF;
+    color: white;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+ul#productList li.hidden {
+    display: none;
+}
+body.night-mode {
+    background-color: #1e1e1e;
+    color: #f4f4f4;
+}
+/* menu de navigation conserve sa couleur bleu*/ 
+nav ul {
+    background-color: #007BFF;
+}
+
+nav ul li a {
+    color: #f4f4f4;
+}
+
+nav ul li a:hover {
+    background-color: #555;
+}
+
+footer {
+    background-color: #1e1e1e;
+    color: #f4f4f4;
+}
+/*adapter la taille de la qualité avec le téléphone mobile*/
+input[type="number"] {
+    -webkit-appearance: textfield; /* Supprime l'apparence par défaut sur mobile */
+    -moz-appearance: textfield; /* Pour les navigateurs basés sur Gecko */
+    appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none; /* Supprime les flèches sur mobile */
+    margin: 0;
+}
 </style>
 
 </head>
@@ -138,6 +198,8 @@
             <li><a href="#blog">Blog</a></li>
             <li><a href="#gallery">Galerie</a></li>
             <li><a href="#contact">Contact</a></li>
+            <li><a href="#search">Recherche Produits</a></li>
+            <li><a href="#order">Commander</a></li>
         </ul>
     </nav>
 
@@ -191,6 +253,23 @@
             <li>Formations personnalisées</li>
         </ul>
     </section>
+   <section id="search" class="container">
+    <h2>Rechercher un produit</h2>
+    <div class="search-container">
+        <input type="text" id="searchBar" placeholder="Recherchez un produit par nom..." />
+    </div>
+    <ul id="productList" style="display: none;">
+        <li data-name="Ordinateur Portable" data-price="800">Ordinateur Portable - 800€</li>
+        <li data-name="Ordinateur Gamer" data-price="1200">Ordinateur Gamer - 1200€</li>
+        <li data-name="Souris sans fil" data-price="20">Souris sans fil - 20€</li>
+        <li data-name="Clavier mécanique" data-price="50">Clavier mécanique - 50€</li>
+        <li data-name="Écran 4K" data-price="300">Écran 4K - 300€</li>
+        <li data-name="Disque dur externe" data-price="100">Disque dur externe - 100€</li>
+        <li data-name="Chargeur USB" data-price="15">Chargeur USB - 15€</li>
+    </ul>
+    <p id="noResults" style="display: none; color: red;">Aucun produit trouvé.</p>
+</section>
+  
 
     <!-- Section Blog -->
     <section id="blog"
@@ -224,8 +303,37 @@
             <img src="images/image9.jpeg" alt="Image 9">
         </div>
     </section>
+    <!-- Section Commande -->
+    <section id="order" class="container">
+    <h2>Passer une commande</h2>
+    <form id="orderForm">
+        <label for="product">Produit :</label>
+        <select id="product" name="product" required>
+            <option value="" disabled selected>Choisissez un produit</option>
+            <option value="Ordinateur Portable">Ordinateur Portable</option>
+            <option value="Souris sans fil">Souris sans fil</option>
+            <option value="Clavier mécanique">Clavier mécanique</option>
+            <option value="Écran 4K">Écran 4K</option>
+            <option value="Disque dur externe">Disque dur externe</option>
+        </select><br><br>
 
-    <!-- Section Contact -->
+        <label for="quantity">Quantité :</label>
+        <input type="number" id="quantity" name="quantity" min="1" value="1" required><br><br>
+
+        <label for="name">Nom :</label>
+        <input type="text" id="name" name="name" placeholder="Sangare" required><br><br>
+
+        <label for="phone">Téléphone :</label>
+        <input type="tel" id="phone" name="phone" placeholder="+22370642308" required><br><br>
+
+        <label for="address">Adresse :</label>
+        <textarea id="address" name="reply_to" placeholder="lamarreserge56@gmail.com" rows="3" required></textarea><br><br>
+
+        <button type="submit">Commander</button>
+    </form>
+</section>
+    
+<!-- Section Contact -->
     <section id="contact"
      class="container">
         <h2>Contactez-nous</h2>
@@ -297,8 +405,10 @@
 
     <!-- Bouton pour remonter en haut -->
     <button onclick="scrollToTop()" style="position: fixed; bottom: 20px; right: 20px;">Haut de page</button>
-
-    <!-- Pied de page -->
+    <!--boton  de mode nuit -->
+     <button id="toggleTheme" style="position: fixed; top: 8px; right: 8px;">Mode Nuit</button>
+    
+   <!-- Pied de page -->
     <footer>
         © 2025 Mon Site Web. Tous droits réservés.
     </footer>
@@ -330,6 +440,71 @@
             slideshow.innerHTML = `<img src="${images[index]}" alt="Image ${index + 1}">`;
         }, 4000);
     </script>
+    <script>
+    // Script pour la recherche avancée
+const searchBar = document.getElementById('searchBar');
+const productList = document.getElementById('productList');
+const products = productList.getElementsByTagName('li');
+const noResults = document.getElementById('noResults');
+
+searchBar.addEventListener('input', function () {
+    const query = searchBar.value.toLowerCase().trim();
+    let hasResults = false;
+
+    // Parcourir les produits pour trouver des correspondances
+    for (let i = 0; i < products.length; i++) {
+        const productName = products[i].getAttribute('data-name').toLowerCase();
+
+        if (query && productName.includes(query)) {
+            products[i].style.display = 'block'; // Afficher le produit correspondant
+            hasResults = true;
+        } else {
+            products[i].style.display = 'none'; // Cacher les produits non correspondants
+        }
+    }
+
+    if (query && hasResults) {
+        productList.style.display = 'block'; // Afficher la liste des résultats
+        noResults.style.display = 'none';    // Cacher le message "Aucun produit trouvé"
+    } else if (query && !hasResults) {
+        productList.style.display = 'none';  // Cacher la liste des résultats
+        noResults.style.display = 'block';  // Afficher le message "Aucun produit trouvé"
+    } else {
+        productList.style.display = 'none'; // Cacher tout si la recherche est vide
+        noResults.style.display = 'none';
+    }
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.4.1/dist/email.min.js"></script>
+<script>
+  // Initialisation d'EmailJS
+  (function () {
+    emailjs.init("A6oXWiN0behpsHZ1s"); // Remplacez par votre User ID EmailJS
+  })();
+
+  // Gestion de l'envoi du formulaire
+  document.getElementById('orderForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // Empêche le rechargement de la page
+
+    // Envoi des données via EmailJS
+    emailjs.sendForm('service_lqrzxch', 'template_njpfoai', this)
+      .then(function () {
+        alert('Commande envoyée avec succès ! Nous vous contacterons bientôt.');
+        document.getElementById('orderForm').reset(); // Réinitialise le formulaire après l'envoi
+      }, function (error) {
+        alert('Une erreur est survenue : ' + error.text);
+      });
+  });
+  const toggleThemeButton = document.getElementById('toggleTheme');
+const body = document.body;
+
+toggleThemeButton.addEventListener('click', function () {
+    body.classList.toggle('night-mode'); // Ajouter ou supprimer la classe "night-mode"
+    toggleThemeButton.textContent = body.classList.contains('night-mode') 
+        ? 'Mode Jour' 
+        : 'Mode Nuit'; // Mettre à jour le texte du bouton
+});
+</script>
 </body>
 </html>
 
